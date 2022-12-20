@@ -3,13 +3,12 @@ from ..schemas import schemas as login_schema
 from ..utilities.schemas import get_db
 from sqlalchemy.orm import Session
 from ..models import models
-from ..routes.token import create_access_token
+from .tokens import create_access_token
 
 
 router = APIRouter(tags=["Login"])
+
 """User Login"""
-
-
 @router.post("/login")
 def login(request: login_schema.Login, db: Session = Depends(get_db)):
     user = db.query(models.User).filter(models.User.name == request.name).first()

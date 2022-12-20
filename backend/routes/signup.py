@@ -9,9 +9,7 @@ from ..auth.auth import JWTBearer
 
 router = APIRouter(prefix="/user", tags=["Users"])
 
-"""Creating User."""
-
-
+"""Creating Signup for User."""
 @router.post("/signup", status_code=status.HTTP_201_CREATED)
 def create_user(request: user_schema.CreateUser, db: Session = Depends(get_db)):
     new_user = user_model.User(
@@ -25,9 +23,7 @@ def create_user(request: user_schema.CreateUser, db: Session = Depends(get_db)):
     return new_user
 
 
-"""Displaying all Users."""
-
-
+"""Displaying all Users after authorization."""
 @router.get(
     "/users",
     dependencies=[Depends(JWTBearer())],
